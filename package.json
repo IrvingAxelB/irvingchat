@@ -1,0 +1,19 @@
+{
+  "name": "chat'em-all",
+  "version": "1.0.0",
+  "description": "Chat box directive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Erik Eppel",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.8.2",
+    "gulp": "^3.9.0",
+    "gulp-nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "express": "^4.13.2"
+  }
+}

@@ -1,0 +1,23 @@
+<doctype! html>
+<html>
+<head>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+
+  <div ng-app="irvingchat" ng-controller="UserController">
+
+    <div id='messagesDiv'> {{message}} </div>
+    
+    <input type='text' id='nameInput' placeholder='Name'>
+    <input type='text' id='messageInput' placeholder='Message'>
+    
+
+    <button ng-click="sendMessage()"> {{ message }} </button>
+  </div>
+
+</body>
+</html>
