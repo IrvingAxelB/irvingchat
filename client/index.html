@@ -8,15 +8,17 @@
 </head>
 <body>
 
-  <div ng-app="irvingchat" ng-controller="UserController">
+  <div ng-app="irvingchat" ng-controller="UserController as user">
 
-    <div id='messagesDiv'> {{message}} </div>
+    <div ng-repeat="currentUser in messages">
+      <p>{{currentUser.name}}: {{currentUser.text}}</p>
+    </div>
     
-    <input type='text' id='nameInput' placeholder='Name'>
-    <input type='text' id='messageInput' placeholder='Message'>
+    <input type='text' ng-model="user.nameInput">
+    <input type='text' ng-model="user.messageInput">
     
 
-    <button ng-click="sendMessage()"> {{ message }} </button>
+    <button ng-click="sendMessage(user.nameInput, user.messageInput)">Send</button>
   </div>
 
 </body>
