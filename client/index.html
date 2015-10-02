@@ -1,25 +1,30 @@
-<doctype! html>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
-<script src="app.js"></script>
+  <title>irvingchat</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>  
+  <scipt src="http://code.angularjs.org/X.Y.Z/angular-route.js"></script>
+  <script src="../node_modules/angular-ui-router/build/angular-ui-router.min.js"></script>  
+  <script src="app.js"></script>
+  <script src="irvingCTRL.js"></script>
+  <script src="signinCTRL.js"></script>
+  <script src="signupCTRL.js"></script>
+  <script src="logoutCTRL.js"></script>
+  <script src="adminCTRL.js"></script>
+  
 </head>
 <body>
 
-  <div ng-app="irvingchat" ng-controller="UserController as user">
 
-    <div ng-repeat="currentUser in messages">
-      <p>{{currentUser.name}}: {{currentUser.text}}</p>
-    </div>
-    
-    <input type='text' ng-model="user.nameInput">
-    <input type='text' ng-model="user.messageInput">
-    
+<div ng-app="irvingchat" ui-view>
+</div>
 
-    <button ng-click="sendMessage(user.nameInput, user.messageInput)">Send</button>
-  </div>
 
 </body>
 </html>

@@ -1,0 +1,11 @@
+<h1>Chat with Irving now!</h1>
+<div ng-controller="SigninController">
+	<div>
+		<input type="email" placeholder="email" ng-model="email">
+		<input type="text" placeholder="password" ng-model="password">
+		<button ng-click="signin(email, password)">Signin</button>
+	</div>
+	<div>
+		<a ng-href="#/signup">Create account</a>
+	</div>
+</div>

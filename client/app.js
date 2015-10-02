@@ -1,47 +1,96 @@
-angular.module('irvingchat', [])
+angular.module('irvingchat', [
+	'ui.router'
+])
 
-.controller('UserController',['$scope', 'IrvingsData', function($scope, IrvingsData){
+.config(function($stateProvider, $urlRouterProvider){
+  $urlRouterProvider.otherwise("/signin");
+  
+  $stateProvider
+    .state('signin', {
+      url: "/signin",
+      views: {
+        "": {
+            templateUrl: "./templates/signin.html"
+        }
+      }
+    })
+    .state('signup', {
+      url: "/signup",
+      views: {
+        "": {
+            templateUrl: "./templates/signup.html"
+        }
+      }
+    })
+    .state('chat', {
+      url: "/chat",
+      views: {
+        "": {
+            templateUrl: "./templates/chat.html"
+        }
+      }
+      // resolve: {
+      //   'currentAuth': ["Auth", function(Auth){
+      //     return Auth.$waitForAuth();
+      //   }
+      // ]}
+    })
+    .state('admin', {
+      url: "/admin",
+      views: {
+        "": {
+            templateUrl: "./templates/admin.html"
+        }
+      }
+    })
 
-	// giving our controllers scope have all messages
-	$scope.messages = IrvingsData.messages;
-	console.log($scope.messages);
+})
 
-	$scope.sendMessage = function(userName, message){
-		// sending the message
-		IrvingsData.myDataRef.push({name: userName, text: message});
+.factory('DataBase', function($state){
+  var ref = new Firebase("https://irvingchat.firebaseio.com");
+  var userData;
 
-	};
+  var createUser = function(email, password){
+    // save the email to user name
 
-
-}])
-
-.factory('IrvingsData', function(){
-	var myDataRef = new Firebase('https://ndtufcx866p.firebaseio-demo.com/');
-	var messages = [];
-
-	myDataRef.on('child_added', function(snapshot) {
-
-        // saving the message object
-        var message = snapshot.val();
-        // saving it into our own array
-        messages.push(message);
-        // keep only ten messages at a time.
-		deleteMessages();
+    ref.createUser({
+      email    : email,
+      password : password
+    }, function(error, userData) {
+      if (error) {
+        console.log("Error creating user:", error);
+      } else {
+        // redirecting to signin page
+        $state.go('signin');
+        console.log("Successfully created user account with uid:", userData.uid);
+      }
     });
+  };
 
-    deleteMessages = function(){
-		var tooMany = true;
-		while(tooMany){
-			if(messages.length > 10){
-				messages.shift();
-			}else{
-				tooMany = false;
-			}
-		}
-	};
+  var signin = function(email, password){
+    // var ref = new Firebase("https://irvingchat.firebaseio.com");
+    ref.authWithPassword({
+      email    : email,
+      password : password
+    }, function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+        userData = authData;
+        // redirecting to chat
+        $state.go('chat');
 
-    return {
-    	myDataRef: myDataRef,
-    	messages: messages
-    };
+        console.log(authData, "authData BRO!");
+      }
+    }, {
+      remember: "sessionOnly"
+    });
+  };
+
+  return {
+    createUser: createUser,
+    signin: signin,
+    ref: ref
+  };
 })

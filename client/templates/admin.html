@@ -1,0 +1,28 @@
+<h1>Good Afternoon Irving.</h1>
+
+<div ng-controller="AdminController">
+
+  <!-- dont know how to set this up yet. -->
+  <div id="rooms">
+    Room:
+    <select id="roomSelect">
+    </select>
+  </div>
+
+  
+  <div ng-repeat="currentUser in messages">
+    <p>{{currentUser.name}}: {{currentUser.text}}</p>
+  </div>
+  
+  <input type='text' ng-model="nameInput">
+  <input type='text' ng-model="messageInput">
+  
+  <button ng-click="sendMessage(nameInput, messageInput)">Send</button>
+
+
+</div>
+
+<div ng-controller="LogoutController">
+  <button ng-click="logout()">Logout</button>  
+</div>
+
